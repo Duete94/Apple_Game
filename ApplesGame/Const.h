@@ -16,7 +16,11 @@ namespace ApplesGame
 	const float PAUSE_LENGHT = 3.f;
 	const int MIN_RANDOM_APPLES = 10;    
 	const int MAX_RANDOM_APPLES = 100;   
+
 	const int MAX_APPLES_ON_SCREEN = 10;
+
+	
+
 
 }
 

@@ -20,20 +20,23 @@ namespace ApplesGame
 
 	};
 	
-	struct Game
+	struct Game 
 	{
-		int numApples;
-		int appleLimit;
-		float speedModifier;
-		unsigned int flags;
+		int numApples;                     
+		int appleLimit;                    
+		float speedModifier;               
+		unsigned int flags;                
+
 		unsigned int modeFlags;
 		int currentMode;
 
 		std::unique_ptr<Apple[]> apples; //Unique pointer to apple array
 
+
 		Rectangle screenRect;
 		Player player;
 		Stone stones[NUM_STONES];
+		
 
 		// Global game data
 		int numEatenApples = 0;

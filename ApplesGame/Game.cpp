@@ -5,6 +5,7 @@ namespace ApplesGame
 {
 	void AddApple(Game& game)   // Add apple function
 	{
+
 		if (game.flags & FLAG_INFINITE_APPLES)
 		{
 			if (game.numApples >= MAX_APPLES_ON_SCREEN)
@@ -15,6 +16,10 @@ namespace ApplesGame
 			if (game.numApples >= game.appleLimit)
 				return;
 		}
+
+		if (game.numApples >= game.appleLimit)
+			return;
+
 
 		Apple newApple;
 		InitApples(newApple, game);
@@ -85,7 +90,11 @@ namespace ApplesGame
 		}
 		else if (game.flags & FLAG_INFINITE_APPLES)
 		{
+
 			game.appleLimit = MAX_APPLES_ON_SCREEN; // оставляем только ограничение на экран
+
+			game.appleLimit = 100;
+
 		}
 		if (game.flags & FLAG_SPEED_CHANGE)
 		{
@@ -189,6 +198,7 @@ namespace ApplesGame
 		UpdatePlayer(game.player, deltaTime);
 		
 		// Game over verification
+
 		if (game.flags & FLAG_INFINITE_APPLES)
 		{
 			// В бесконечном режиме игра не заканчивается по количеству яблок
@@ -218,6 +228,23 @@ namespace ApplesGame
 				AddApple(game);
 			}
 		}
+
+		if (!(game.flags & FLAG_INFINITE_APPLES)) // Checking only for non-infinite mode
+		{
+			if (game.numEatenApples >= game.appleLimit)
+			{
+		
+				game.isGameFinished = true;
+				game.timeSinceGameFinish = 0.f;
+
+				game.sounds.collisionSound.play();
+
+				game.gameOverText.setString("Game Over: " + std::to_string(game.numEatenApples));
+
+				return;
+			}
+		}
+
 		
 		// Check collisions with apples
 		for (int i = 0; i < game.numApples; ++i)
@@ -331,12 +358,20 @@ namespace ApplesGame
 		if (game.modeFlags & FLAG_SPEED_CHANGE)
 		{
 			// Speed change logic
+
 			INITIAL_SPEED + game.numEatenApples * 5.0f;
+
+			float speed = 100.0f + game.numEatenApples * 5.0f;
+
 		
 		}
 		else if (game.modeFlags & FLAG_NORMAL_SPEED)
 		{
+
 			INITIAL_SPEED;
+
+			float speed = 100.0f;
+
 
 		}
 
