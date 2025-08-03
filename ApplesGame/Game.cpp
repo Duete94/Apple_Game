@@ -17,10 +17,7 @@ namespace ApplesGame
 				return;
 		}
 
-		if (game.numApples >= game.appleLimit)
-			return;
-
-
+		
 		Apple newApple;
 		InitApples(newApple, game);
 		SetApplePosition(newApple, GetRandomPositionInRectangle(game.screenRect));
